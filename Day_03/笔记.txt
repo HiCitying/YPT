@@ -68,6 +68,9 @@
 		SEEK_CUR 从文件当前位置开始偏移
 		SEEK_END 从文件末尾开始偏移
 
+
+	链接编译 gcc a.c b.c -o (name) -I （path  ../lib）库文件
+
 		
 	
 	
