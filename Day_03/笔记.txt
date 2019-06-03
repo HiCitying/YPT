@@ -1,0 +1,74 @@
+第三天上午
+
+1.gec6818开发板，芯片采用三星公司的S5PV6818采用ARM架构内核coteXA53
+
+2.SecureCRT串口终端软件
+
+3.如何操作开发板，将编译后的可执行程序给到开发板上让其运行
+	进入开发板/home 在创建一个自己的目录
+
+
+第三天下午
+
+1.开发板的屏幕由480*800，分辨率480*800
+	每个像素点占32bit，又a r g b组成，各占8bit
+	a 透明度
+	r 红色
+	g 绿色
+	b 蓝色
+
+2.检测屏幕显示
+
+3.在linux下文件操作
+
+4.帧缓冲原理
+	帧缓冲设备是一个文件对应位置/dev/fb0;
+	（1）open
+	#include <sys/types.h>
+       	#include <sys/stat.h>
+       	#include <fcntl.h>
+
+	int open(const char *pathname, int flags);
+	chr *pathname 代表一个带路径的文件名（1.相对路径 /xxx 当前路径下的xxx文件 2.绝对路径 C/Data/xxx）
+	int flages 以何种方式打开
+		O_RDONLY  只读
+		O_WRONLY 只写
+		O_RDWR	   可 读可写
+
+	返回值
+		打开成功返回一个文件描述符（非负数）
+		失败返回 -1
+
+
+	（2）write
+	#include <unistd.h>
+	
+	ssize_t write(int fd, const void *buf, size_t count);
+	
+	将buf指向的内存区域的数据count个字节的数据写到fd所代表的文件中去
+
+	返回值
+		成功返回你写入的字节数
+		失败返回 -1
+
+	关闭文件
+		close(int fd);
+
+	(3)lseek 光标定位
+	#include <sys/types.h>
+       	#include <unistd.h>
+
+	 off_t lseek(int fd, off_t offset, int whence);
+	将打开后的文件进行光标定位
+
+	int fd 指定你需要定位的文件是哪个
+	off_t  offset 你要偏移多少个字节要结合whence使用
+	int whence 你从哪里开始光标定位
+		SEEK_SET  从文件头开始偏移
+		SEEK_CUR 从文件当前位置开始偏移
+		SEEK_END 从文件末尾开始偏移
+
+		
+	
+	
+		
