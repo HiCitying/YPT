@@ -1,0 +1,49 @@
+		第四天上午
+1.write 函数调用，从用户态转换到内核态，转换时很消耗资源而且效率低，改用映射。
+2.映射 mmap
+	把我们用户空间的地址映射到进程地址空间中
+	函数
+	#include <sys/mman.h>
+
+	void *mmap(void *addr, size_t length, int prot, int flags,
+                  int fd, off_t offset);
+
+	将fd文件映射到进程地址空间
+	*addr 首地址（一般NULL在内存）
+	size_t length 映射多大的内存
+	int prot 何种权限映射
+		 PROT_READ
+		PROT_WRITE
+	int flags 何方式映射 MAP_SHARED（其他进程也可以访问这段映射的进程）
+	int fd 映射的那个文件
+	off_t offset  从文件的那个位置开始映射（默认 0）起始位置
+
+	返回值
+		成功返回首地址
+		失败返回MAP_FAILED
+	解映射
+		munmap（）
+	int munmap(void *addr, size_t length);
+
+
+	第四天下午
+1.bmp格式的图片
+	bmp格式的图片是windows下最常见的 基本格式图片，没有经过算法压缩
+
+2.什么是小端模式和大端模式
+	小端模式就是低地址存低字节，高地址存高字节
+	大端模式就是低地址存高字节，
+3.read函数
+	#include <unistd.h>
+	ssize_t read(int fd, void *buf, size_t count);
+	
+	将fd所代表的文件里面的数据读取count个字节到buf所指的内存区域；
+	int fd 文件描述符
+	void *buf 你要把数据读到哪个内存，就是buf所指的区域
+	size_t count 你要从文件中读取的字节数
+
+	成功返回所读到的字节数
+	失败返回 -1；
+
+	
+	
