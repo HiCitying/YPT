@@ -13,6 +13,9 @@
 
 #define FB0PATH "/dev/fb0"
 
+#define Bwidth 16
+#define Bhigh  16
+
 void ClearScreen(int fd,int x0,int y0,int ph,int pw,int color);
 
 

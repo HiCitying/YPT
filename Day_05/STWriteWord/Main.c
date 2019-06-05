@@ -1,0 +1,28 @@
+#include "Head.h"
+#include "TWord.h"
+#include "WordScreen.h"
+
+void WordScreen(int fd,int x0,int y0,int ph,int pw,int color, unsigned int (*status)[16]);
+
+void main(void)
+{
+    int fd=open(FB0PATH,O_RDWR);
+    if(fd<0)
+    {
+        printf("Open Error\n");
+    }
+    ClearScreen(fd,0,0,480,800,0xf0f0f0);
+
+
+    int i,j;
+
+    unsigned int word[32]={0x10,0x00,0x10,0x00,0x21,0xFC,0x24,0x20,0x44,0x20,0xF8,0x20,0x10,0x20,0x20,0x20,
+                           0x40,0x20,0xFC,0x20,0x40,0x20,0x00,0x20,0x1C,0x20,0xE0,0x20,0x43,0xFE,0x00,0x00};
+
+
+    unsigned int mode_1[16][16]={0};
+
+    TWord(word,mode_1);
+    WordScreen(fd,100,200,16,16,0x00000000,mode_1);
+
+}
