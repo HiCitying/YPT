@@ -1,0 +1,13 @@
+	第五天上午
+1.在（100,50）显示一张大小为400*240大小的bmp图片
+
+2.对文件操作时，报错采用perror
+	#include <stdio.h>
+
+       	void perror(const char *s);
+
+      	 #include <errno.h>
+
+
+	第五天下午
+1.字的取模软件的使用以及编程
