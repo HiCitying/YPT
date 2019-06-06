@@ -1,0 +1,56 @@
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include "Mapping.h"
+#include "Show_Bmp.h"
+#include "ClearScreen.h"
+#include "Show_Word.h"
+#include "Show_Num.h"
+
+
+void main(void)
+{
+
+    unsigned char mo[2][32] = {{0x20,0x00,0x3E,0x7C,0x48,0x44,0x08,0x44,0xFF,0x44,0x14,0x44,0x22,0x7C,0x40,0x00,
+                                0x1F,0xF0,0x10,0x10,0x10,0x10,0x1F,0xF0,0x10,0x10,0x10,0x10,0x1F,0xF0,0x10,0x10},
+                               {0x10,0x40,0x24,0x44,0x42,0x48,0xFF,0x70,0x01,0x40,0x00,0x42,0x7E,0x42,0x42,0x3E,
+                                0x42,0x00,0x7E,0x44,0x42,0x48,0x42,0x70,0x7E,0x40,0x42,0x42,0x4A,0x42,0x44,0x3E}};
+
+
+    //1.打开文件
+    int lcd_fd = open("/dev/fb0",O_RDWR);
+    if(lcd_fd < 0)
+    {
+        perror("open lcd_fd error\n");
+    }
+
+    //2.映射内存
+    int *p=Mapping(lcd_fd,800,480);
+
+    //3.打开图片
+    int picture_fd = open("./Hong.bmp",O_RDWR);
+    if(picture_fd < 0)
+    {
+        perror("open picture_fd erorr\n");
+    }
+
+    //4.显示图片
+    Show_Bmp(picture_fd,p,800,480,0,0);
+    //sleep(2);
+    //ClearScreen(p,0x00ff0000);
+    Show_Word(mo[0],p,0,0,16, sizeof(mo[0]),0x00ff0000);
+    Show_Num(1,p,200,0,0x00FF0000);
+
+    Show_Num(12,p,200,20,0x00FF0000);
+    Show_Num(234,p,200,40,0x00FF0000);
+    Show_Num(2345,p,200,60,0x00FF0000);
+    Show_Num(23564,p,200,80,0x00FF0000);
+
+
+    //5.收尾
+    DeMapping(p,800,480);
+    close(lcd_fd);
+    close(picture_fd);
+
+
+}

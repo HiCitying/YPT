@@ -1,0 +1,38 @@
+									第六天上午
+1.跟着老师一起来把显示字的代码进行理解和封装
+
+2.将代码添加到智能家居的工程文件中去，以工程的形式去整理好代码
+
+
+
+
+
+									下午
+1.输入事件
+	在Linux系统，所有的输入事件（键盘，鼠标，触摸屏等）都用一个结构体
+	表示
+	struct input_event {
+				struct timeval time; //输入事件发生的时间
+				__u16 type;	//输入事件的类型
+							EV_KEY;//按键事件（键盘）
+							EV_ABS;absolution //绝对事件	
+				__u16 code; //根据type的不同，code含义不一样
+						type == EV_KEY,
+						code就为按键的键值，
+							KEY_Q
+							KEY_A
+							.....
+							BTN_TOUCH
+							
+				__s32 value;//根据type的不同，value含义也不同
+					type == EV_KEY
+							value就为按键的状态
+									1 按下去
+									0 弹起
+				type == EV_ABS
+					value 就为相应坐标的坐标
+									
+				
+		};
+		
+触摸屏对应的文件位置是/dev/input/event0；
