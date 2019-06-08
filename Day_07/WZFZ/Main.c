@@ -139,13 +139,13 @@ void main(void)
                 {
                     if(flag==0)
                     {
-                        Show_Bmp(start_fd,p,80,78,80,80);
-                        kill(pid_1,19);
+                        Show_Bmp(pause_fd,p,80,78,80,80);
+                        kill(pid_1,18);
                         flag=1;
 
                     } else{
-                        Show_Bmp(pause_fd,p,80,78,80,80);
-                        kill(pid_1,18);
+                        Show_Bmp(start_fd,p,80,78,80,80);
+                        kill(pid_1,19);
                         flag=0;
 
                     }
