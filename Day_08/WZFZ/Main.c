@@ -10,6 +10,7 @@
 #include "Show_Word.h"
 #include "Show_Num.h"
 #include "Play_Music.h"
+#include "Open_Led.h"
 //#include "Touch_Screen.h"
 
 
@@ -68,10 +69,31 @@ void main(void)
     {
         perror("open pause_fd erorr\n");
     }
+    //打开驱动
+    int led_fd = open("/dev/led_drv",O_RDWR);
+    if(led_fd < 0)
+    {
+        perror("open led_fd erorr\n");
+    }
+
+
+    int light_off_fd = open("./light_off.bmp",O_RDWR);
+    if(light_off_fd < 0)
+    {
+        perror("open light_off_fd erorr\n");
+    }
+    int light_on_fd = open("./light_on.bmp",O_RDWR);
+    if(light_on_fd < 0)
+    {
+        perror("open light_on_fd erorr\n");
+    }
 
     //4.显示图片
     Show_Bmp(music_fd,p,240,240,0,0);
     Show_Bmp(start_fd,p,80,78,80,80);
+
+    Open_Led(led_fd,0,10);
+    Show_Bmp(light_off_fd,p,144,240,650,0);
 
     //sleep(2);
     //ClearScreen(p,0x00ff0000);
@@ -88,8 +110,9 @@ void main(void)
 
     //sleep(20);
     //pid=fork();
-//    if((pid_1=fork())==0)
+//    if((pid_2=fork())==0)
 //    {
+//
 //        //Touch_Screen(p,picture_fd);
 //    }
 
@@ -103,11 +126,13 @@ void main(void)
 
     struct input_event ev;
     int flag=0;
+    int led_flag=0;
+    int ret;
     while(1)
     {
 
         //读取触摸屏事件
-        int ret = read(touch_fd,&ev,sizeof(ev));
+        ret = read(touch_fd,&ev,sizeof(ev));
         if(ret < sizeof(ev))
         {
             continue;
@@ -203,6 +228,19 @@ void main(void)
                         Play_Music(music[num_music]);
                     }
 
+                }
+            } else if(x>650&&x<800&&y>0&&y<240)
+            {
+                if(led_flag==0)
+                {
+                    Open_Led(led_fd,1,10);
+                    Show_Bmp(light_on_fd,p,144,240,650,0);
+                    led_flag=1;
+                } else
+                {
+                    Open_Led(led_fd,0,10);
+                    Show_Bmp(light_off_fd,p,144,240,650,0);
+                    led_flag=0;
                 }
             }
 
