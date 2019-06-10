@@ -97,7 +97,24 @@ void main(void)
 
     //sleep(2);
     //ClearScreen(p,0x00ff0000);
-//    Show_Word(mo[0],p,0,0,16, sizeof(mo[0]),0x00ff0000);
+
+//    if((pid_2=fork())==0)
+//    {
+//        int i=1;
+//        while (i)
+//        {
+//            Show_Word(mo[0],p,i,0,16, sizeof(mo[0]),0x00ff0000);
+//            sleep(0.3);
+//            i++;
+//            if(i>=800)
+//            {
+//                i=1;
+//            }
+//            ClearScreen(p,0x00ffffff);
+//        }
+//    }
+
+
 //    Show_Num(1,p,200,0,0x00FF0000);
 
 //    Show_Num(22222,p,200,20,0x00FF0000);
@@ -123,6 +140,8 @@ void main(void)
 //    }
     //sleep(10);
     //ClearScreen(p,0x00ffffff);
+
+    ClearScreen(p,0,150,5,480,0x00ff0000);
 
     struct input_event ev;
     int flag=0;

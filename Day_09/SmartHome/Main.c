@@ -11,6 +11,8 @@
 #include "Show_Num.h"
 #include "Play_Music.h"
 #include "Open_Led.h"
+#include "Serial.h"
+#include "LTPHH.h"
 //#include "Touch_Screen.h"
 
 
@@ -24,6 +26,7 @@ void main(void)
 
     int pid_1=-1;
     int pid_2=-1;
+    int pid_3=-1;
 
     char *music[2]={"TSLS.mp3","TSWD.mp3"};
     int num_music=0;
@@ -89,7 +92,7 @@ void main(void)
     }
 
     //4.显示图片
-    Show_Bmp(music_fd,p,240,240,0,0);
+    //Show_Bmp(music_fd,p,240,240,0,0);
     Show_Bmp(start_fd,p,80,78,80,80);
 
     Open_Led(led_fd,0,10);
@@ -97,7 +100,24 @@ void main(void)
 
     //sleep(2);
     //ClearScreen(p,0x00ff0000);
-//    Show_Word(mo[0],p,0,0,16, sizeof(mo[0]),0x00ff0000);
+
+//    if((pid_2=fork())==0)
+//    {
+//        int i=1;
+//        while (i)
+//        {
+//            Show_Word(mo[0],p,i,0,16, sizeof(mo[0]),0x00ff0000);
+//            sleep(0.3);
+//            i++;
+//            if(i>=800)
+//            {
+//                i=1;
+//            }
+//            ClearScreen(p,0x00ffffff);
+//        }
+//    }
+
+
 //    Show_Num(1,p,200,0,0x00FF0000);
 
 //    Show_Num(22222,p,200,20,0x00FF0000);
@@ -110,11 +130,25 @@ void main(void)
 
     //sleep(20);
     //pid=fork();
-//    if((pid_2=fork())==0)
-//    {
-//
-//        //Touch_Screen(p,picture_fd);
-//    }
+
+    if((pid_2=fork())==0)
+    {
+        int L=0;
+        int T=0;
+        int P=0;
+        int H1=0;
+        int H2=0;
+        //int *py1=p;
+
+        //Touch_Screen(p,picture_fd);
+        LTPHH(p,&L,&T,&P,&H1,&H2);
+    }
+
+
+
+
+
+
 
 
 //    if((pid_2=fork())==0)
@@ -123,6 +157,8 @@ void main(void)
 //    }
     //sleep(10);
     //ClearScreen(p,0x00ffffff);
+
+    ClearScreen(p,0,150,5,480,0x00ff0000);
 
     struct input_event ev;
     int flag=0;
