@@ -91,6 +91,16 @@ void main(void)
         perror("open light_on_fd erorr\n");
     }
 
+    //////////////////////////
+//    int picture_fd = open("./bt_on.bmp",O_RDWR);
+//    if(picture_fd < 0)
+//    {
+//        perror("open picture_fd erorr\n");
+//    }
+//    Show_Bmp(picture_fd,p,150,93,300,0);
+    ///////////////////////
+
+
     //4.显示图片
     Show_Bmp(music_fd,p,240,240,0,0);
     Show_Bmp(start_fd,p,80,78,80,80);
