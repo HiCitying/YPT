@@ -25,6 +25,8 @@
 
 #include "ThreadFunction.h"
 
+#include "LTPHH.h"
+
 
 
 unsigned char cmd1[2]={0,10};
@@ -214,6 +216,7 @@ void main(void)
 
 
 
+    StartMain();
 
 
     ClearScreen(0,0,800,480,0x00ffffff);
@@ -235,6 +238,7 @@ void main(void)
 
     int pid_5=-1;
     int pid_6=-1;
+    void *pthreadstatus=NULL;
 
 
     int function=-1;
@@ -273,6 +277,12 @@ void main(void)
     {
         perror("mulu_fd erorr\n");
     }
+
+    int bgd_1_fd = open("./bgd_1.bmp",O_RDWR);
+    if(bgd_1_fd < 0)
+    {
+        perror("bgd_1_fd erorr\n");
+    }
 //    int light_on_fd = open("./light_on.bmp",O_RDWR);
 //    if(light_on_fd < 0)
 //    {
@@ -291,6 +301,8 @@ void main(void)
 
     //Show_Bmp(pl_picture_fd,p,200,120,0,0);
     Show_Bmp(mulu_fd,p,200,480,0,0);
+    Show_Bmp(bgd_1_fd,p,600,480,200,0);
+
     pthread_t thread;
     int temp;
     memset(&thread, 0, sizeof(thread));          //comment1         /*创建线程*/
@@ -598,13 +610,29 @@ void main(void)
                     case 4:
                     {
                         //
-//                        pthread_cancel(thread);
-//                        close(lcd_fd);
-//                        close(led_fd);
-//                        close(touch_fd);
-//                        ClearScreen(0,0,800,480,0x00ffffff);
-//                        kill(pid_6,9);
-//                        exit(0);
+
+
+
+                        pthread_cancel(thread);
+                        //pthread_join(thread,&pthreadstatus);
+                        kill(pid_6,9);
+
+
+                        EndMian();
+
+
+
+
+
+
+
+                        close(lcd_fd);
+                        close(led_fd);
+                        close(touch_fd);
+                        EndMian();
+                        //ClearScreen(0,0,800,480,0x00ffffff);
+
+                        exit(0);
                     }
                     default:
                     {

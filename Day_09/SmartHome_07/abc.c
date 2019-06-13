@@ -88,7 +88,7 @@ int main(void)
 
     //3.打开图片文件以及读取数据和处理 显示
     show_bmp("./plh_2.bmp",200,120,0,0);
-    
+
     //4.收尾工作
     munmap(p,800*480*4);
     close(lcd_fd);

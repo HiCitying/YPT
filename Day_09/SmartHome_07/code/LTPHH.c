@@ -122,9 +122,9 @@ void LTPHH(int *py,int flag)
 
 
 
-        sleep(1);  // 休眠1秒
+        //sleep(1);  // 休眠1秒
 
-        if(lxu<18)
+        if(lxu<10)
         {
             Open_Led(led_fd,1,8);
         } else
